@@ -1,110 +1,71 @@
 (function () {
-    function loadStylesheet(href) {
-        if (document.querySelector('link[href="' + href + '"]')) {
-            return;
-        }
-        var link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = href;
-        document.head.appendChild(link);
+    var mount = document.getElementById("visitor-map-mount");
+    if (!mount) {
+        return;
     }
 
-    function loadScript(src) {
-        return new Promise(function (resolve, reject) {
-            var script = document.createElement("script");
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.body.appendChild(script);
+    var fallbackWrap = document.getElementById("visitor-map-fallback");
+    var staticImg = document.getElementById("visitor-map-static");
+    var note = document.getElementById("visitor-map-note");
+    var attempts = 0;
+    var maxAttempts = 24;
+
+    function showInteractiveMap() {
+        mount.classList.add("has-interactive");
+        if (fallbackWrap) {
+            fallbackWrap.hidden = true;
+        }
+        if (note) {
+            note.hidden = true;
+        }
+    }
+
+    function showFallbackMessage(message) {
+        if (note) {
+            note.textContent = message;
+            note.hidden = false;
+        }
+    }
+
+    function interactiveReady() {
+        var widget = document.getElementById("mapmyvisitors-widget");
+        if (!widget) {
+            return false;
+        }
+        var map = widget.querySelector(".mapmyvisitors-map");
+        return map && widget.offsetHeight > 80;
+    }
+
+    var timer = window.setInterval(function () {
+        attempts += 1;
+        if (interactiveReady()) {
+            showInteractiveMap();
+            window.clearInterval(timer);
+            return;
+        }
+        if (attempts >= maxAttempts) {
+            window.clearInterval(timer);
+            showFallbackMessage("Interactive map could not load on your network. Showing static visitor map instead.");
+        }
+    }, 500);
+
+    if (staticImg) {
+        staticImg.addEventListener("load", function () {
+            if (!mount.classList.contains("has-interactive") && note) {
+                note.hidden = false;
+                note.textContent = "Loading interactive visitor map...";
+            }
         });
-    }
-
-    function fetchLocation() {
-        return fetch("https://ipwho.is/")
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                if (!data.success) {
-                    throw new Error("ipwho.is failed");
-                }
-                return {
-                    lat: data.latitude,
-                    lon: data.longitude,
-                    city: data.city,
-                    country: data.country
-                };
-            })
-            .catch(function () {
-                return fetch("https://api.ip.sb/geoip")
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        if (!data.latitude || !data.longitude) {
-                            throw new Error("ip.sb failed");
-                        }
-                        return {
-                            lat: data.latitude,
-                            lon: data.longitude,
-                            city: data.city || data.region || "Unknown",
-                            country: data.country || "Unknown"
-                        };
-                    });
-            });
-    }
-
-    function initVisitorMap() {
-        var container = document.getElementById("visitor-leaflet-map");
-        if (!container || container.dataset.initialized === "true") {
-            return;
-        }
-        container.dataset.initialized = "true";
-
-        loadStylesheet("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css");
-        loadScript("https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js")
-            .then(function () {
-                var map = L.map(container, {
-                    scrollWheelZoom: false,
-                    worldCopyJump: true
-                }).setView([20, 0], 2);
-
-                L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                    subdomains: "abcd",
-                    maxZoom: 19
-                }).addTo(map);
-
-                fetchLocation()
-                    .then(function (data) {
-                        L.circleMarker([data.lat, data.lon], {
-                            radius: 8,
-                            color: "#2563eb",
-                            weight: 2,
-                            fillColor: "#3b82f6",
-                            fillOpacity: 0.85
-                        }).addTo(map).bindPopup(
-                            "<strong>Your approximate location</strong><br>" +
-                            data.city + ", " + data.country
-                        ).openPopup();
-                        map.setView([data.lat, data.lon], 3);
-                    })
-                    .catch(function () {
-                        map.fitWorld();
-                    });
-
-                setTimeout(function () {
-                    map.invalidateSize();
-                }, 100);
-            })
-            .catch(function () {
-                container.innerHTML = '<p class="visitor-map-fallback">Unable to load map tiles.</p>';
-            });
-    }
-
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initVisitorMap);
-    } else {
-        initVisitorMap();
+        staticImg.addEventListener("error", function () {
+            window.clearInterval(timer);
+            if (fallbackWrap) {
+                fallbackWrap.innerHTML =
+                    '<p class="visitor-map-fallback">' +
+                    "MapMyVisitors is unavailable on your current network. " +
+                    "The map usually works for international visitors. " +
+                    'Check your stats at <a href="https://mapmyvisitors.com/" target="_blank" rel="noopener">MapMyVisitors</a>.' +
+                    "</p>";
+            }
+        });
     }
 })();

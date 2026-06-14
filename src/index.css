@@ -129,20 +129,49 @@ hr.pub-divider {
     margin-bottom: 1.25rem;
 }
 .visitor-map-mount {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 720px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 160px;
 }
-.visitor-leaflet-map {
-    width: min(100%, 720px);
-    height: 320px;
+.visitor-map-fallback-wrap {
+    margin-bottom: 0.5rem;
+}
+.visitor-map-image {
+    width: 100%;
+    height: auto;
     border-radius: 8px;
-    overflow: hidden;
     border: 1px solid #e8e8e8;
-    z-index: 0;
+    display: block;
+}
+.visitor-map-mount.has-interactive .visitor-map-fallback-wrap,
+.visitor-map-mount.has-interactive .visitor-map-note {
+    display: none !important;
+}
+.visitor-map-mount #mapmyvisitors-widget {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.visitor-map-note {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+.visitor-map-pixel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
 .visitor-map-fallback {
     color: #888;
     font-size: 0.9rem;
     text-align: center;
+    line-height: 1.6;
+}
+.visitor-map-fallback a {
+    color: #3273dc;
 }
