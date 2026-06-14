@@ -115,3 +115,41 @@ hr.pub-divider {
     margin: 0 0.75rem;
     opacity: 0.6;
 }
+
+.visitor-map-section {
+    padding: 2.5rem 0 1rem;
+    border-top: 1px solid #e8e8e8;
+}
+.visitor-map-section .title {
+    margin-bottom: 0.35rem;
+}
+.visitor-map-caption {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+.visitor-map-mount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 320px;
+}
+.visitor-map-mount canvas,
+.visitor-map-mount #mmvst_globe-widget,
+.visitor-map-mount #mapmyvisitors-widget {
+    display: inline-block;
+    max-width: 100%;
+}
+.visitor-leaflet-map {
+    width: min(100%, 720px);
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    z-index: 0;
+}
+.visitor-map-fallback {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
+}

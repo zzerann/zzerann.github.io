@@ -21,6 +21,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script defer src="https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js"></script>
+    <script src="src/visitor-map-config.js?v=20260612"></script>
+    <script src="src/visitor-map.js?v=20260612"></script>
     <script src="src/index.js?v=20260610"></script>
 </head>
 
@@ -350,6 +352,16 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <section class="visitor-map-section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-4 has-text-centered">Visitor Map</h2>
+            <p class="visitor-map-caption has-text-centered">
+                Approximate visitor locations based on IP geolocation.
+            </p>
+            <div id="visitor-map-mount" class="visitor-map-mount"></div>
         </div>
     </section>
 
