@@ -132,16 +132,17 @@ hr.pub-divider {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 320px;
 }
-.visitor-map-mount #mapmyvisitors-widget {
-    display: inline-block;
-    max-width: 100%;
+.visitor-leaflet-map {
+    width: min(100%, 720px);
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    z-index: 0;
 }
-.visitor-map-pixel {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
+.visitor-map-fallback {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
 }
