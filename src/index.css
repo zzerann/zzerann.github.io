@@ -134,8 +134,7 @@ hr.pub-divider {
     align-items: center;
     min-height: 320px;
 }
-.visitor-map-mount #mmvst_globe-widget,
-.visitor-map-mount .mmvst_outer {
+.visitor-map-mount #mapmyvisitors-widget {
     display: inline-block;
     max-width: 100%;
 }
