@@ -63,7 +63,7 @@
                     '<p class="visitor-map-fallback">' +
                     "MapMyVisitors is unavailable on your current network. " +
                     "The map usually works for international visitors. " +
-                    'Check your stats at <a href="https://mapmyvisitors.com/" target="_blank" rel="noopener">MapMyVisitors</a>.' +
+                    'Check your stats at <a href="https://mapmyvisitors.com/web/1c5ej" target="_blank" rel="noopener">MapMyVisitors</a>.' +
                     "</p>";
             }
         });
