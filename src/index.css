@@ -129,15 +129,20 @@ hr.pub-divider {
     margin-bottom: 1.25rem;
 }
 .visitor-map-mount {
-    width: 720px;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.visitor-map-image {
-    width: 100%;
-    height: auto;
+.visitor-leaflet-map {
+    width: min(100%, 720px);
+    height: 320px;
     border-radius: 8px;
+    overflow: hidden;
     border: 1px solid #e8e8e8;
-    display: block;
+    z-index: 0;
+}
+.visitor-map-fallback {
+    color: #888;
+    font-size: 0.9rem;
+    text-align: center;
 }
