@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
-    <link href="src/index.css?v=20260621" rel="stylesheet">
+    <link href="src/index.css?v=20260622" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
@@ -357,11 +357,13 @@
         <div class="container is-max-desktop">
             <h2 class="title is-4 has-text-centered">Visitor Map</h2>
             <p class="visitor-map-caption has-text-centered">
-                Approximate visitor locations based on IP geolocation.
+                Approximate visitor locations based on IP geolocation. Click the map for full statistics.
             </p>
-            <div class="visitor-map-mount">
-                <div id="visitor-leaflet-map" class="visitor-leaflet-map"></div>
+            <div id="visitor-map-mount" class="visitor-map-mount">
+                <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=GKZwpWNrvpPixp-O0IeMpDSLq76lqkQ8XKM2opJF2FE&amp;cl=ffffff&amp;w=720"></script>
             </div>
+            <p id="visitor-map-note" class="visitor-map-note" hidden></p>
+            <img width="1" height="1" alt="" src="https://mapmyvisitors.com/map.png?d=GKZwpWNrvpPixp-O0IeMpDSLq76lqkQ8XKM2opJF2FE&amp;cl=ffffff" class="visitor-map-pixel">
         </div>
     </section>
 
@@ -375,6 +377,6 @@
         </div>
     </footer>
 
-    <script src="src/visitor-map.js?v=20260620"></script>
+    <script src="src/visitor-map.js?v=20260622"></script>
 </body>
 </html>

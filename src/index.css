@@ -129,20 +129,30 @@ hr.pub-divider {
     margin-bottom: 1.25rem;
 }
 .visitor-map-mount {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.visitor-leaflet-map {
-    width: min(100%, 720px);
-    height: 320px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #e8e8e8;
-    z-index: 0;
-}
-.visitor-map-fallback {
-    color: #888;
-    font-size: 0.9rem;
+    width: 720px;
+    max-width: 100%;
+    margin: 0 auto;
     text-align: center;
+    min-height: 160px;
+}
+.visitor-map-mount #mapmyvisitors-widget {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+.visitor-map-note {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+    text-align: center;
+}
+.visitor-map-note a {
+    color: #3273dc;
+}
+.visitor-map-pixel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
